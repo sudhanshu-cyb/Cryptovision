@@ -6,29 +6,65 @@ An advanced, interactive educational platform and simulator designed to visualiz
 
 ## 🚀 Key Features
 
-*   **DES Step-by-Step Feistel Visualizer:** Tracks data block transformations across all 16 Feistel rounds, showcasing circular key shifts, expansion permutations ($E$), S-box mappings, and permutation matrix ($P$) diffusions.
-*   **AES Rijndael Matrix Visualizer:** Inspects the $4 \times 4$ column-major state matrix across all transformations: `SubBytes` (Galois S-Box), `ShiftRows` (cyclic offsets), `MixColumns` (GF($2^8$) polynomial multiplication), and `AddRoundKey` XOR.
-*   **Avalanche Effect Heatmap Analyzer:** Computes diffusion metrics by measuring output bit flip variance from a single-bit input modification.
-*   **Performance Throughput Dashboard:** Compares algorithmic latency, throughput overhead, and hardware-acceleration instructions (AES-NI) telemetry.
-*   **Telemetry History Logs:** Persists operations in an SQLite datastore with metrics exporting capabilities.
-*   **Interactive Cyber Lab Suite:** Integrated quiz module for assessment and a curated documentation repository for classroom-ready cryptography training.
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top">
+      <h4>🔒 DES Feistel Visualizer</h4>
+      <p>Tracks data block transformations across all 16 Feistel rounds, showcasing circular key shifts, expansion permutations (E), S-box mappings, and permutation matrix (P) diffusions.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h4>🔑 AES Rijndael Matrix Visualizer</h4>
+      <p>Inspects the 4x4 column-major state matrix across all transformations: <code>SubBytes</code>, <code>ShiftRows</code>, <code>MixColumns</code>, and <code>AddRoundKey</code> XOR.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h4>📊 Avalanche Effect Heatmap</h4>
+      <p>Computes diffusion metrics by measuring output bit flip variance from a single-bit input modification in an interactive grid.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h4>⚡ Performance Throughput</h4>
+      <p>Compares algorithmic latency, throughput overhead, and hardware-acceleration instructions (AES-NI) telemetry side-by-side.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h4>📁 Telemetry Audit Log</h4>
+      <p>Persists operation history in an SQLite database with detailed statistics exporting capabilities (CSV, JSON, Plaintext).</p>
+    </td>
+    <td width="50%" valign="top">
+      <h4>🎓 Cyber Lab Training Suite</h4>
+      <p>Features an interactive assessment quiz module and a structured documentation archive for learning cryptography concepts.</p>
+    </td>
+  </tr>
+</table>
 
 ---
 
 ## 🛠️ System Tech Stack
 
-### Frontend Architecture
-*   **React 19 & TypeScript 6.0:** State management and component-driven architecture.
-*   **Vite 8.1:** Lightning-fast HMR bundler.
-*   **Tailwind CSS v4:** Cyber-laboratory themed neon CSS design system.
-*   **Framer Motion:** Micro-animations for state transitions and binary shuffles.
-*   **Lucide Icons:** Unified cryptographic iconography.
-
-### Backend Infrastructure
-*   **FastAPI:** High-performance, concurrent ASGI python web framework.
-*   **Uvicorn:** Production-ready web server.
-*   **PyCryptodome:** Robust underlying cryptography primitives.
-*   **SQLite3:** Lightweight relational storage for execution history.
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top" style="border: 1px solid #1e293b; border-radius: 8px; padding: 16px; background-color: #0f172a;">
+      <h3>💻 Frontend Architecture</h3>
+      <ul>
+        <li><strong>React 19 & TypeScript 6.0:</strong> Strict type safety with state-driven modular views.</li>
+        <li><strong>Vite 8.1:</strong> Lightning-fast build and dev compilation with hot module reloading.</li>
+        <li><strong>Tailwind CSS v4:</strong> Futuristic cybersecurity neon CSS style system.</li>
+        <li><strong>Framer Motion:</strong> Immersive micro-animations for matrix cell swaps and shuffles.</li>
+      </ul>
+    </td>
+    <td width="50%" valign="top" style="border: 1px solid #1e293b; border-radius: 8px; padding: 16px; background-color: #0f172a;">
+      <h3>⚙️ Backend Infrastructure</h3>
+      <ul>
+        <li><strong>FastAPI (ASGI):</strong> Concurrent asynchronous Python API engine.</li>
+        <li><strong>Uvicorn:</strong> Production ASGI server to handle local connections.</li>
+        <li><strong>PyCryptodome:</strong> Pure-cryptography underlying engines for trace generation.</li>
+        <li><strong>SQLite3:</strong> Integrated relational history storage for simulation audits.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 ---
 
