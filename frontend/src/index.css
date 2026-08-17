@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-dark: #07090e;
+    --card-bg: rgba(13, 18, 30, 0.45);
+    --border-color: rgba(0, 242, 254, 0.15);
+    --neon-green: #00ff66;
+    --neon-blue: #00f2fe;
+    --neon-purple: #9d4edd;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Courier New', Courier, monospace, system-ui;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Custom Scrollbar for cyber theme */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(7, 9, 14, 0.8);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 242, 254, 0.25);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 102, 0.5);
+  }
+}
+
+/* Cyber Matrix Grid Background Effect */
+.cyber-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 242, 254, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 242, 254, 0.04) 1px, transparent 1px);
+  position: relative;
+}
+
+.cyber-grid::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 20%, #07090e 80%);
+  pointer-events: none;
+}
+
+/* Neon Glows */
+.glow-blue {
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+}
+
+.glow-green {
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+  border: 1px solid rgba(0, 255, 102, 0.3);
+}
+
+.glow-purple {
+  box-shadow: 0 0 15px rgba(157, 78, 221, 0.2);
+  border: 1px solid rgba(157, 78, 221, 0.3);
+}
+
+/* Text Glows */
+.text-glow-blue {
+  text-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
+}
+
+.text-glow-green {
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+}
+
+/* Scanline animation */
+.scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* Glassmorphism Cards */
+.glass-panel {
+  background: rgba(13, 18, 30, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 242, 254, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.glass-panel:hover {
+  border-color: rgba(0, 242, 254, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 242, 254, 0.08);
+}
+
+/* Custom matrix code rain animation */
+@keyframes matrix-rain {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.matrix-stream {
+  position: absolute;
+  color: var(--neon-green);
+  font-size: 14px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  user-select: none;
+  pointer-events: none;
+  animation: matrix-rain 20s linear infinite;
+  opacity: 0.12;
+}
+
+/* Pulsing terminal cursor */
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 18px;
+  background-color: var(--neon-green);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { background-color: transparent }
+  50% { background-color: var(--neon-green); }
+}
