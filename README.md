@@ -38,17 +38,17 @@ An advanced, interactive educational platform and simulator designed to visualiz
 
 ```mermaid
 flowchart TD
-    subgraph Frontend (React 19)
+    subgraph "Frontend (React 19)"
         UI[Cyber Lab UI] -->|User Input| State[State Manager]
         State -->|REST API Payload| API_Client[HTTP Axios/Fetch Client]
         API_Client -->|JSON Trace Response| Render[Step-by-Step Animation Engine]
     end
 
-    subgraph Backend (FastAPI Server)
+    subgraph "Backend (FastAPI Server)"
         API_Client <==>|Port 8000| Endpoints[API Routing App]
         Endpoints -->|Run Cipher Trace| CryptEngine[DES / AES PyCryptodome Engines]
         CryptEngine -->|Compute Detailed Steps| EngineTrace[Block State Tracer]
-        EngineTrace -->|Insert Exec Record| DB[(SQLite History DB)]
+        EngineTrace -->|Insert Exec Record| DB[("SQLite History DB")]
     end
 ```
 
