@@ -1,215 +1,241 @@
-# CryptoVision Simulator 🔐
+# CryptoVision 🔐 | Enterprise-Grade Cryptographic Simulator
 
-An interactive educational platform for understanding and visualizing cryptographic algorithms with real-time encryption/decryption capabilities.
+An advanced, interactive educational platform and simulator designed to visualize the internal mechanics of block ciphers. Supporting detailed step-by-step bit-level tracing for both the **Data Encryption Standard (DES)** and the **Advanced Encryption Standard (AES)**, CryptoVision provides real-time state analysis, avalanche effect heatmaps, and benchmarking dashboards inside a sleek, cybersecurity-laboratory interface.
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![React](https://img.shields.io/badge/React-19.2.7-blue.svg)
-![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue.svg)
+---
 
-## Features ✨
+## 🚀 Key Features
 
-- **DES Simulator** - Step-by-step visualization of Data Encryption Standard encryption/decryption
-- **AES Simulator** - Interactive Advanced Encryption Standard implementation with visual feedback
-- **Learning Center** - Comprehensive educational guides on cryptography concepts
-- **Avalanche Effect Visualizer** - See how small input changes dramatically affect encrypted output
-- **Algorithm Comparison** - Compare DES and AES performance and characteristics side-by-side
-- **Quiz Module** - Test your cryptography knowledge with interactive quizzes
-- **History Manager** - Track and review all previous encryption/decryption operations
-- **Interactive Dashboard** - User-friendly navigation interface
+*   **DES Step-by-Step Feistel Visualizer:** Tracks data block transformations across all 16 Feistel rounds, showcasing circular key shifts, expansion permutations ($E$), S-box mappings, and permutation matrix ($P$) diffusions.
+*   **AES Rijndael Matrix Visualizer:** Inspects the $4 \times 4$ column-major state matrix across all transformations: `SubBytes` (Galois S-Box), `ShiftRows` (cyclic offsets), `MixColumns` (GF($2^8$) polynomial multiplication), and `AddRoundKey` XOR.
+*   **Avalanche Effect Heatmap Analyzer:** Computes diffusion metrics by measuring output bit flip variance from a single-bit input modification.
+*   **Performance Throughput Dashboard:** Compares algorithmic latency, throughput overhead, and hardware-acceleration instructions (AES-NI) telemetry.
+*   **Telemetry History Logs:** Persists operations in an SQLite datastore with metrics exporting capabilities.
+*   **Interactive Cyber Lab Suite:** Integrated quiz module for assessment and a curated documentation repository for classroom-ready cryptography training.
 
-## Tech Stack 🛠️
+---
 
-### Frontend
-- **React** 19.2.7 - Modern UI framework
-- **TypeScript** 6.0 - Type-safe JavaScript
-- **Vite** 8.1 - Lightning-fast build tool
-- **Tailwind CSS** 4.3.2 - Utility-first CSS framework
-- **Framer Motion** 12.42.2 - Smooth animations
-- **Lucide React** 1.24.0 - Beautiful icons
+## 🛠️ System Tech Stack
 
-### Backend
-- **FastAPI** 0.115.8 - High-performance Python web framework
-- **Uvicorn** 0.34.0 - ASGI server
-- **Pycryptodome** 3.21.0 - Cryptographic algorithms
-- **SQLite** - Lightweight database for history storage
+### Frontend Architecture
+*   **React 19 & TypeScript 6.0:** State management and component-driven architecture.
+*   **Vite 8.1:** Lightning-fast HMR bundler.
+*   **Tailwind CSS v4:** Cyber-laboratory themed neon CSS design system.
+*   **Framer Motion:** Micro-animations for state transitions and binary shuffles.
+*   **Lucide Icons:** Unified cryptographic iconography.
 
-## Project Structure 📁
+### Backend Infrastructure
+*   **FastAPI:** High-performance, concurrent ASGI python web framework.
+*   **Uvicorn:** Production-ready web server.
+*   **PyCryptodome:** Robust underlying cryptography primitives.
+*   **SQLite3:** Lightweight relational storage for execution history.
+
+---
+
+## 📐 System Architecture
+
+### Process Flow Diagram
+
+```mermaid
+flowchart TD
+    subgraph Frontend (React 19)
+        UI[Cyber Lab UI] -->|User Input| State[State Manager]
+        State -->|REST API Payload| API_Client[HTTP Axios/Fetch Client]
+        API_Client -->|JSON Trace Response| Render[Step-by-Step Animation Engine]
+    end
+
+    subgraph Backend (FastAPI Server)
+        API_Client <==>|Port 8000| Endpoints[API Routing App]
+        Endpoints -->|Run Cipher Trace| CryptEngine[DES / AES PyCryptodome Engines]
+        CryptEngine -->|Compute Detailed Steps| EngineTrace[Block State Tracer]
+        EngineTrace -->|Insert Exec Record| DB[(SQLite History DB)]
+    end
+```
+
+---
+
+## 📁 Repository Structure
 
 ```
 CryptoVision/
 ├── backend/
-│   ├── app.py                          # FastAPI application & API endpoints
-│   ├── requirements.txt                # Python dependencies
+│   ├── app.py                          # FastAPI Entrypoint, CORS & Database ORM
+│   ├── requirements.txt                # Python backend dependencies
 │   └── algorithms/
-│       ├── des.py                      # DES encryption implementation
-│       └── aes.py                      # AES encryption implementation
+│       ├── des.py                      # Pure Python DES Engine with step-by-step tracing
+│       └── aes.py                      # Pure Python AES Engine with Galois field tracing
 │
 ├── frontend/
-│   ├── package.json                    # Node.js dependencies
-│   ├── vite.config.ts                  # Vite build configuration
-│   ├── tsconfig.json                   # TypeScript configuration
-│   ├── index.html                      # HTML entry point
-│   ├── README.md                       # Frontend documentation
+│   ├── package.json                    # Node dependencies & package scripts
+│   ├── vite.config.ts                  # Vite build-time config
+│   ├── tsconfig.json                   # TypeScript project rules
+│   ├── index.html                      # HTML root template
 │   └── src/
-│       ├── main.tsx                    # React entry point
-│       ├── App.tsx                     # Main application component
-│       ├── App.css                     # Application styles
-│       ├── index.css                   # Global styles
-│       ├── assets/                     # Static assets
+│       ├── main.tsx                    # React mounting script
+│       ├── App.tsx                     # Main layout shell and routing
+│       ├── index.css                   # Tailwind v4 globals, Glassmorphism, Neon glow animations
 │       └── components/
 │           ├── AES/
-│           │   └── AesSimulator.tsx   # AES encryption simulator
+│           │   └── AesSimulator.tsx    # Interactive AES State Matrix visualization
 │           ├── DES/
-│           │   └── DesSimulator.tsx   # DES encryption simulator
+│           │   └── DesSimulator.tsx    # Feistel Round, S-Box lookups & P-shuffles
 │           ├── Dashboard/
-│           │   └── Dashboard.tsx      # Main dashboard
-│           ├── Learning/
-│           │   └── LearningCenter.tsx # Educational content
-│           ├── Quiz/
-│           │   └── QuizModule.tsx     # Quiz functionality
+│           │   └── Dashboard.tsx       # Live throughput analytics & telemetry graphs
 │           ├── Visualizer/
-│           │   ├── AvalancheEffect.tsx
-│           │   └── CompareAlgorithms.tsx
+│           │   ├── AvalancheEffect.tsx # Diff heatmap and bit flip variance analytics
+│           │   └── CompareAlgorithms.tsx # Specification matrices and speed comparators
+│           ├── Learning/
+│           │   └── LearningCenter.tsx  # Interactive educational guides
+│           ├── Quiz/
+│           │   └── QuizModule.tsx      # MCQ module with interactive scoring
 │           ├── History/
-│           │   └── HistoryManager.tsx # History tracking
+│           │   └── HistoryManager.tsx  # Relational audit log management
 │           └── Common/
-│               └── Sidebar.tsx        # Navigation sidebar
-│
-└── .gitignore                          # Git ignore rules
-
+│               └── Sidebar.tsx         # Navigation sidebar layout
 ```
-
-## Installation & Setup 🚀
-
-### Prerequisites
-- **Node.js** 16+ (for frontend)
-- **Python** 3.8+ (for backend)
-- **npm** or **yarn** (package manager)
-
-### Backend Setup
-
-1. Navigate to backend directory:
-```bash
-cd backend
-```
-
-2. Create a virtual environment (optional but recommended):
-```bash
-python -m venv venv
-source venv/Scripts/activate  # On Windows
-# or
-source venv/bin/activate      # On macOS/Linux
-```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-4. Start the FastAPI server:
-```bash
-uvicorn app:app --reload
-```
-
-**Backend runs on:** `http://localhost:8000`
-
-### Frontend Setup
-
-1. In a new terminal, navigate to frontend directory:
-```bash
-cd frontend
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
-npm run dev
-```
-
-**Frontend runs on:** `http://localhost:5173`
-
-### Access the Application
-
-Open your browser and visit: `http://localhost:5173`
-
-## Available Scripts 📝
-
-### Frontend
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server with hot reload |
-| `npm run build` | Build optimized production bundle |
-| `npm run lint` | Run linter for code quality |
-| `npm run preview` | Preview production build |
-
-### Backend
-| Command | Description |
-|---------|-------------|
-| `uvicorn app:app --reload` | Start development server with auto-reload |
-| `uvicorn app:app --host 0.0.0.0 --port 8000` | Start on all network interfaces |
-
-## API Endpoints 🔌
-
-The FastAPI backend provides the following endpoints:
-
-- `POST /encrypt/des` - Encrypt data using DES
-- `POST /decrypt/des` - Decrypt data using DES
-- `POST /encrypt/aes` - Encrypt data using AES
-- `POST /decrypt/aes` - Decrypt data using AES
-- `GET /history` - Retrieve encryption history
-- `POST /compare` - Compare DES and AES algorithms
-- `GET /visualization/avalanche` - Get avalanche effect data
-
-## How to Use 🎯
-
-1. **Encryption/Decryption**: Select an algorithm (DES or AES), enter your plaintext, and visualize the encryption process in real-time.
-
-2. **Learning**: Visit the Learning Center to understand the fundamentals of DES and AES algorithms.
-
-3. **Visualization**: Explore the Avalanche Effect to see how sensitive cryptographic algorithms are to input changes.
-
-4. **Comparison**: Compare the characteristics and performance of DES vs AES side-by-side.
-
-5. **Quiz**: Test your knowledge with interactive cryptography quizzes.
-
-6. **History**: Review all your previous encryption/decryption operations.
-
-## Contributing 🤝
-
-Contributions are welcome! To contribute:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## License 📄
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-## Author ✍️
-
-**Sudhanshu Keskar**
-- GitHub: [@sudhanshu-cyb](https://github.com/sudhanshu-cyb)
-- Email: sudhanshu.keskar.cyb@ghrcemp.raisoni.net
-
-## Support 💬
-
-If you encounter any issues or have questions, please open an [Issue](https://github.com/sudhanshu-cyb/Cryptovision/issues) on GitHub.
-
-## Acknowledgments 🙏
-
-- FastAPI documentation and community
-- React and TypeScript documentation
-- Pycryptodome library
-- Educational resources on cryptography
 
 ---
 
-**Happy Learning! 🚀**
+## 🔌 API Documentation & Schema Specification
+
+The FastAPI backend exposes endpoints at `http://127.0.0.1:8000/`.
+
+### 1. DES Encryption Trace (`POST /encrypt/des`)
+Generates the complete Feistel schedule and bit-level trace details for the first 64-bit block.
+
+*   **Request Headers:** `Content-Type: application/json`
+*   **Request Body:**
+    ```json
+    {
+      "plaintext": "CRYPTO12",
+      "key": "MYKEY123"
+    }
+    ```
+*   **Response Schema (Truncated):**
+    ```json
+    {
+      "ciphertext": "f3b890...",
+      "key_schedule": [
+        {
+          "round": 1,
+          "c_shift": "111000...",
+          "d_shift": "000111...",
+          "round_key": "1010...",
+          "round_key_hex": "A1B2..."
+        }
+      ],
+      "trace": {
+        "plaintext_binary": "01000011...",
+        "initial_permutation": {
+          "input": "01000011...",
+          "output": "11100011..."
+        },
+        "rounds": [
+          {
+            "round_num": 1,
+            "left_in": "11100011...",
+            "right_in": "00011100...",
+            "expanded_right": "1000111...",
+            "xor_result": "0011...",
+            "sbox_details": [
+              {
+                "sbox_num": 1,
+                "input": "101010",
+                "row": 2,
+                "col": 5,
+                "output": "1100",
+                "val_decimal": 12
+              }
+            ],
+            "p_permutation_out": "1100..."
+          }
+        ]
+      }
+    }
+    ```
+
+### 2. AES Encryption Trace (`POST /encrypt/aes`)
+*   **Request Body:**
+    ```json
+    {
+      "plaintext": "CYBERSECURITYLAB",
+      "key": "MYSECRETKEY12345",
+      "key_size": 128
+    }
+    ```
+
+---
+
+## ⚙️ Local Development Setup
+
+### System Prerequisites
+*   **Node.js** v18 or higher (v20+ recommended)
+*   **Python** v3.9 or higher
+*   **C compiler** (Optional, only if building raw PyCryptodome packages from source)
+
+### Backend Deployment
+
+1.  **Clone and Navigate to Backend:**
+    ```bash
+    cd backend
+    ```
+
+2.  **Initialize Virtual Environment:**
+    ```bash
+    python -m venv venv
+    # On Windows
+    venv\Scripts\activate
+    # On macOS/Linux
+    source venv/bin/activate
+    ```
+
+3.  **Install Production Requirements:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Launch Uvicorn Web Server:**
+    ```bash
+    python app.py
+    ```
+    The server will startup on port `8000` (`http://127.0.0.1:8000`).
+
+### Frontend Deployment
+
+1.  **Navigate to Frontend:**
+    ```bash
+    cd ../frontend
+    ```
+
+2.  **Install Node Modules:**
+    ```bash
+    npm install
+    ```
+
+3.  **Compile & Launch Dev Server:**
+    ```bash
+    npm run dev
+    ```
+    Open `http://localhost:5173/` in your browser.
+
+---
+
+## 🛡️ Telemetry & Security Analysis
+
+CryptoVision analyzes cipher implementations across security levels:
+
+| Cipher | Key Strength Options | Security Level | Vulnerabilities Explored |
+| :--- | :--- | :--- | :--- |
+| **DES** | 56-bit | **Exposed (Deprecated)** | Linear cryptanalysis, brute-force keyspace sweeps |
+| **AES** | 128, 192, 256-bit | **Secure (Standard)** | Side-channel timing profiles |
+
+---
+
+## 👨‍💻 Author & Contributions
+
+Designed and developed with care by **Sudhanshu Keskar**.
+
+*   **GitHub:** [@sudhanshu-cyb](https://github.com/sudhanshu-cyb)
+*   **Email:** [sudhanshukeskar@gmail.com](mailto:sudhanshukeskar@gmail.com)
+
+Contributions are welcome! Please open an issue or submit a pull request.
